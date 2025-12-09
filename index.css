@@ -1,0 +1,136 @@
+/* Global Font Import - fallback if index.html link fails, but usually kept in HTML for perf */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f4f8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; 
+}
+
+/* Utility: Hide Scrollbar (for sidebar) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* =========================================
+   Print Specific Styles
+   ========================================= */
+@media print {
+    /* Hide Sidebar, Header, and specific print-hidden elements globally */
+    header, 
+    .fixed, 
+    .sidebar-container, 
+    .print-hidden { 
+        display: none !important; 
+    }
+    
+    /* Reset main container margins/padding to ensure full width printing */
+    .flex-1 { 
+        margin: 0 !important; 
+        padding: 0 !important; 
+    }
+    #root { 
+        padding: 0 !important; 
+    }
+    
+    /* Global Page settings */
+    @page { 
+        margin: 1cm; 
+        size: auto; 
+    }
+    body { 
+        -webkit-print-color-adjust: exact; 
+        print-color-adjust: exact; 
+    }
+
+    /* 
+       Section Specific Printing Logic 
+       When a specific class is added to body, hide everything except the target section.
+    */
+    
+    /* Medicines Section Isolation */
+    body.print-medicines-only * { 
+        visibility: hidden; 
+        height: 0; 
+        overflow: hidden; 
+    }
+    body.print-medicines-only .print-medicines-target { 
+        visibility: visible; 
+        height: auto; 
+        overflow: visible;
+        position: absolute; 
+        left: 0; 
+        top: 0; 
+        width: 100%; 
+        margin: 0;
+        padding: 0;
+    }
+    body.print-medicines-only .print-medicines-target * { 
+        visibility: visible; 
+        height: auto; 
+        overflow: visible; 
+    }
+    /* Show custom header when isolated */
+    body.print-medicines-only .print-medicines-target .print-section-header {
+        display: block !important;
+        visibility: visible;
+        height: auto;
+    }
+    /* Hide default card header when isolated */
+    body.print-medicines-only .print-medicines-target .card-header-actions {
+        display: none !important;
+    }
+
+    /* Equipment Section Isolation */
+    body.print-equipment-only * { 
+        visibility: hidden; 
+        height: 0; 
+        overflow: hidden; 
+    }
+    body.print-equipment-only .print-equipment-target { 
+        visibility: visible; 
+        height: auto; 
+        overflow: visible;
+        position: absolute; 
+        left: 0; 
+        top: 0; 
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    body.print-equipment-only .print-equipment-target * { 
+        visibility: visible; 
+        height: auto; 
+        overflow: visible; 
+    }
+    /* Show custom header when isolated */
+    body.print-equipment-only .print-equipment-target .print-section-header {
+        display: block !important;
+        visibility: visible;
+        height: auto;
+    }
+    /* Hide default card header when isolated */
+    body.print-equipment-only .print-equipment-target .card-header-actions {
+        display: none !important;
+    }
+}
